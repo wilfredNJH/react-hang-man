@@ -1,71 +1,75 @@
-import React, { useState, useEffect } from 'react';
-import Header from './components/Header/Header';
-import Figure from './components/Figure/Figure';
-import WrongLetters from './components/Wrong Letters/WrongLetters';
-import Word from './components/Word/Word';
-import Popup from './components/PopUp/Popup';
-import Notification from './components/Notification/Notification';
-import { showNotification as show, checkWin } from './helpers/helpers';
+import React, { useState } from 'react'
+import {checkWin} from './helpers/helper'
 
+import { Header, Figure, Word, Popup } from './components';
 import './App.css';
+const alphabets = ["A", "B", "C", "D", "E", "F", "G",
+    "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R",
+    "S", "T", "U", "V", "W", "X", "Y", "Z"];
+const words = ['TESTING', 'KIDDING']
+const random =[Math.floor(Math.random() * words.length)]
+let selectedWord = words[random]
+let playable = true;
 
-const words = ['application', 'programming', 'interface', 'wizard'];
-let selectedWord = words[Math.floor(Math.random() * words.length)];
+const correctLetters = []
+const wrongLetters = []
 
-function App() {
-  const [playable, setPlayable] = useState(true);
-  const [correctLetters, setCorrectLetters] = useState([]);
-  const [wrongLetters, setWrongLetters] = useState([]);
-  const [showNotification, setShowNotification] = useState(false);
+const App = () => {
+    const [playable, setPlayable] = useState(true)
+    const [correctLetters, setCorrectLetters] = useState([])
+    const [wrongLetters, setWrongLetters] = useState([])
+    const [disabledButtons, setDisabledButtons] = useState([])
 
-  useEffect(() => {
-    const handleKeydown = event => {
-      const { key, keyCode } = event;
-      if (playable && keyCode >= 65 && keyCode <= 90) {
-        const letter = key.toLowerCase();
-        if (selectedWord.includes(letter)) {
-          if (!correctLetters.includes(letter)) {
-            setCorrectLetters(currentLetters => [...currentLetters, letter]);
-          } else {
-            show(setShowNotification);
-          }
-        } else {
-          if (!wrongLetters.includes(letter)) {
-            setWrongLetters(currentLetters => [...currentLetters, letter]);
-          } else {
-            show(setShowNotification);
-          }
-        }
-      }
+    function playAgain(){
+        setPlayable(true);
+
+        setCorrectLetters([]);
+        setWrongLetters([]);
+        setDisabledButtons([]);
+        selectedWord = words[random];
     }
-    window.addEventListener('keydown', handleKeydown);
+ 
+    return (
+        <div className='App'>
+            <Header />
+            <div className='game_container'>
+                <Figure wrongLetters={wrongLetters} />
+                <Word selectedWord={selectedWord} correctLetters={correctLetters} />
+                <Popup correctLetters={correctLetters} wrongLetters={wrongLetters} selectedWord={selectedWord} setPlayable={setPlayable} playAgain={playAgain}/>
 
-    return () => window.removeEventListener('keydown', handleKeydown);
-  }, [correctLetters, wrongLetters, playable]);
 
-  function playAgain() {
-    setPlayable(true);
+                <div className='hangman_btns' id='allBtns' style={checkWin(correctLetters,wrongLetters,selectedWord)!=='lose'?{}:{display:'none'}}>
+                    
+                    {alphabets.map((alphabet, index) => {
+                            const id = `b${index}`
+                            return (
+                                <button key={index} value={alphabet} disabled={disabledButtons.includes(id)} onClick={() => {
+                                    if (playable) {
+                                        if (selectedWord.includes(alphabet)) {
+                                            setCorrectLetters([...correctLetters, alphabet])
+                                            setDisabledButtons(prevState => [...prevState, id]);
+                                            console.log(correctLetters);
+                                        }
+                                        else {
+                                            setWrongLetters([...wrongLetters, alphabet])
+                                            setDisabledButtons(prevState => [...prevState, id]);
+                                            console.log(wrongLetters);
+                                        }
+                                    }
 
-    // Empty Arrays
-    setCorrectLetters([]);
-    setWrongLetters([]);
+                                }}>{alphabet}</button>
+                            )
+                        }
 
-    const random = Math.floor(Math.random() * words.length);
-    selectedWord = words[random];
-  }
 
-  return (
-    <>
-      <Header />
-      <div className="game-container">
-        <Figure wrongLetters={wrongLetters} />
-        <WrongLetters wrongLetters={wrongLetters} />
-        <Word selectedWord={selectedWord} correctLetters={correctLetters} />
-      </div>
-      <Popup correctLetters={correctLetters} wrongLetters={wrongLetters} selectedWord={selectedWord} setPlayable={setPlayable} playAgain={playAgain} />
-      <Notification showNotification={showNotification} />
-    </>
-  );
+                        )}
+                </div>
+            </div>
+            
+        </div>
+
+    )
 }
 
-export default App;
+
+export default App

@@ -1,0 +1,6 @@
+.word p{
+    font-family: var(--font-family);
+    color: #fff;
+    padding:2rem;
+    font-size: 24px;
+}

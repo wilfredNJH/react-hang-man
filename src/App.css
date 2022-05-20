@@ -1,130 +1,108 @@
 * {
-  box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    scroll-behavior: smooth;
 }
 
-body, #root {
-  background-color: #34495e;
-  color: #fff;
-  font-family: Arial, Helvetica, sans-serif;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  height: 80vh;
-  margin: 0;
-  overflow: hidden;
+body {
+    background: var(--color-bg);
+}
+.game_container{
+    padding-top: 1rem;
+    text-align: center;
 }
 
-h1 {
-  margin: 20px 0 0;
+a {
+    color: unset;
+    text-decoration: none;
 }
 
-.game-container {
-  padding: 20px 30px;
-  position: relative;
-  margin: auto;
-  height: 350px;
-  width: 450px;
+.gradient_bg {
+    /* ff 3.6+ */
+    background: -moz-radial-gradient(circle at 3% 25%, rgba(0, 40, 83, 1) 0%, rgba(4, 12, 24, 1) 100%);
+
+    /* safari 5.1+,chrome 10+ */
+    background: -webkit-radial-gradient(circle at 3% 25%, rgba(0, 40, 83, 1) 0%, rgba(4, 12, 24, 1) 100%);
+
+    /* opera 11.10+ */
+    background: -o-radial-gradient(circle at 3% 25%, rgba(0, 40, 83, 1) 0%, rgba(4, 12, 24, 1) 100%);
+
+    /* ie 10+ */
+    background: -ms-radial-gradient(circle at 3% 25%, rgba(0, 40, 83, 1) 0%, rgba(4, 12, 24, 1) 100%);
+
+    /* global 92%+ browsers support */
+    background: radial-gradient(circle at 3% 25%, rgba(0, 40, 83, 1) 0%, rgba(4, 12, 24, 1) 100%);
+
 }
 
-.figure-container {
-  fill: transparent;
-  stroke: #fff;
-  stroke-width: 4px;
-  stroke-linecap: round;
+.gradient_text {
+    background: var(--gradient-text);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
-.figure-part {
-  display: none;
+.section_padding {
+    padding: 4rem 6rem;
 }
 
-.wrong-letters-container {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  display: flex;
-  flex-direction: column;
-  text-align: right;
+.section_margin {
+    margin: 4rem 6rem;
 }
 
-.wrong-letters-container p {
-  margin: 0 0 5px;
+/**
+ * ----------------------------------------
+ * animation scale-up-center
+ * ----------------------------------------
+ */
+.scale-up-center {
+    -webkit-animation: scale-up-center 0.4s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+    animation: scale-up-center 0.4s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
 }
 
-.wrong-letters-container span {
-  font-size: 24px;
+@-webkit-keyframes scale-up-center {
+    0% {
+        -webkit-transform: scale(0.5);
+        transform: scale(0.5);
+    }
+
+    100% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+    }
 }
 
-.word {
-  display: flex;
-  position: absolute;
-  bottom: 10px;
-  left: 50%;
-  transform: translateX(-50%);
+@keyframes scale-up-center {
+    0% {
+        -webkit-transform: scale(0.5);
+        transform: scale(0.5);
+    }
+
+    100% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+    }
 }
 
-.letter {
-  border-bottom: 3px solid #2980b9;
-  display: inline-flex;
-  font-size: 30px;
-  align-items: center;
-  justify-content: center;
-  margin: 0 3px;
-  height: 50px;
-  width: 20px;
+/*tablets or bigger phones*/
+@media screen and(max-width:700px) {
+    .section_padding {
+        padding: 4rem;
+    }
+
+    .section_margin {
+        margin: 4rem;
+    }
 }
 
-.popup-container {
-  background-color: rgba(0, 0, 0, 0.3);
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  /* display: flex; */
-  display: none;
-  align-items: center;
-  justify-content: center;
-}
+/*smaller phones*/
+@media screen and(max-width:550px) {
+    .section_padding {
+        padding: 4rem 2rem;
+    }
 
-.popup {
-  background: #2980b9;
-  border-radius: 5px;
-  box-shadow: 0 15px 10px 3px rgba(0, 0, 0, 0.1);
-  padding: 20px;
-  text-align: center;
-}
-
-.popup button {
-  cursor: pointer;
-  background-color: #fff;
-  color: #2980b9;
-  border: 0;
-  margin-top: 20px;
-  padding: 12px 20px;
-  font-size: 16px;
-}
-
-.popup button:active {
-  transform: scale(0.98);
-}
-
-.popup button:focus {
-  outline: 0;
-}
-
-.notification-container {
-  background-color: rgba(0, 0, 0, 0.3);
-  border-radius: 10px 10px 0 0;
-  padding: 15px 20px;
-  position: absolute;
-  bottom: -50px;
-  transition: transform 0.3s ease-in-out;
-}
-
-.notification-container p {
-  margin: 0;
-}
-
-.notification-container.show {
-  transform: translateY(-50px);
+    .section_margin {
+        margin: 4rem 2rem;
+    }
 }
