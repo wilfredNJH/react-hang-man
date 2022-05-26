@@ -1,11 +1,12 @@
-.hangman_btns{
+.hangman_btns {
     padding: 2rem 1rem;
     text-align: center;
 }
-.hangman_btns button{
+
+.hangman_btns button {
     text-align: center;
-    width:45px;
-    height:25px;
+    width: 45px;
+    height: 25px;
     margin: 5px 2px;
-    cursor:pointer;
+    cursor: pointer;
 }

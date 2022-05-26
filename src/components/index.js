@@ -1,5 +1,5 @@
-export {default as Header } from './header/Header';
-export {default as Figure } from './figure/Figure';
-export {default as Word } from './word/Word';
-export {default as Buttons } from './buttons/Buttons';
-export {default as Popup } from './popup/Popup';
+export { default as Header } from './Header/Header.jsx';
+export { default as Figure } from './Figure/Figure.jsx';
+export { default as Word } from './Word/Word.jsx';
+export { default as Buttons } from './buttons/Buttons';
+export { default as Popup } from './PopUp/Popup';
